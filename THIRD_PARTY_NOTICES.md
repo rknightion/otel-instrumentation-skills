@@ -11,7 +11,7 @@ This skill set is independently written. It was designed after inspecting two Ap
 
 From OllyGarden: the overall catalogue and decomposition into skills. Fourteen of the fifteen skill names here match skill names in that project (`otel-collector`, `otel-collector-builder`, `otel-declarative-config`, `otel-go`, `otel-js`, `otel-ottl`, `otel-python`, `otel-sdk-versions`, `otel-semantic-conventions`, `otel-span-events-to-logs-migration`, `otel-telemetry-emissions`, `otel-telemetrygen`, `otel-upgrade`, `otel-weaver`), as does the method of resolving the project's exact versions and retrieving tagged upstream source instead of bundling facts.
 
-From Dash0: the `otel-instrumentation` skill name and the instrumentation-quality and pipeline review ideas it applies (cardinality, propagation, duplication, correlation and overhead checks).
+From Dash0: the `otel-instrumentation` skill name (Dash0 also ships `otel-collector`, `otel-ottl` and `otel-semantic-conventions`, names shared with OllyGarden) and the instrumentation-quality and pipeline review ideas it applies (cardinality, propagation, duplication, correlation and overhead checks).
 
 ## What was not taken
 

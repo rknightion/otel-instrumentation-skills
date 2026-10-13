@@ -1,14 +1,14 @@
 {
-  "name": "otel",
+  "name": "otel-instrumentation-skills",
   "interface": {
-    "displayName": "otel"
+    "displayName": "otel-instrumentation-skills"
   },
   "plugins": [
     {
-      "name": "otel",
+      "name": "otel-instrumentation-skills",
       "source": {
         "source": "local",
-        "path": "./plugins/otel"
+        "path": "./plugins/otel-instrumentation-skills"
       },
       "policy": {
         "installation": "AVAILABLE",

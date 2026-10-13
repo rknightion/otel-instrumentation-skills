@@ -10,10 +10,10 @@ SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 
 
 def manifests(meta):
-    entry = {**meta, "source": "./plugins/otel"}
+    entry = {**meta, "source": "./plugins/otel-instrumentation-skills"}
     return {
-        "plugins/otel/plugin.json": {"$schema": SCHEMA, **meta},
-        "plugins/otel/.claude-plugin/plugin.json": meta,
+        "plugins/otel-instrumentation-skills/plugin.json": {"$schema": SCHEMA, **meta},
+        "plugins/otel-instrumentation-skills/.claude-plugin/plugin.json": meta,
         ".claude-plugin/marketplace.json": {
             "name": meta["name"],
             "owner": meta["author"],
@@ -29,7 +29,7 @@ def manifests(meta):
             "plugins": [
                 {
                     "name": meta["name"],
-                    "source": {"source": "local", "path": "./plugins/otel"},
+                    "source": {"source": "local", "path": "./plugins/otel-instrumentation-skills"},
                     "policy": {
                         "installation": "AVAILABLE",
                         "authentication": "ON_INSTALL",

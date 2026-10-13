@@ -1,5 +1,5 @@
 {
-  "interpretation": "Native smoke scores, one run per arm. Failed verdicts are retained. Trace-focus judge sees first/last 12 messages only. See validation.md for boundaries.",
+  "interpretation": "Native smoke scores, one run per arm. Failed verdicts are retained. Trace-focus judge sees first/last 12 messages only. See validation.md for boundaries. Runs predate the rename: the plugin was then named otel at plugins/otel.",
   "runs": [
     {
       "local_report": ".local/evals/no-sampling-web/report.html",

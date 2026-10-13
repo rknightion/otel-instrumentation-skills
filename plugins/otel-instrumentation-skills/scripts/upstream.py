@@ -14,7 +14,7 @@ MAX_BYTES = 8 * 1024 * 1024
 
 def fetch(url):
     request = urllib.request.Request(
-        url, headers={"User-Agent": "otel-agent-skills/1", "Accept": "application/json"}
+        url, headers={"User-Agent": "otel-instrumentation-skills", "Accept": "application/json"}
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         raw = response.read(MAX_BYTES + 1)

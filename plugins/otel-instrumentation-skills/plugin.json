@@ -1,6 +1,7 @@
 {
-  "name": "otel",
-  "version": "1.0.4",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "otel-instrumentation-skills",
+  "version": "2.0.0",
   "description": "OpenTelemetry signal quality with durable workflows and fresh, version-correct upstream evidence.",
   "author": {
     "name": "Rob Knight"

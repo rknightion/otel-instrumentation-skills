@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
-    "upstream", ROOT / "plugins/otel/scripts/upstream.py"
+    "upstream", ROOT / "plugins/otel-instrumentation-skills/scripts/upstream.py"
 )
 u = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(u)

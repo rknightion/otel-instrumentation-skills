@@ -12,7 +12,7 @@ Authoritative sources read before packaging:
 - [Agent Plugins 1.0](https://agent-plugins.org/specification): fixed `skills/` discovery, portable schema, containment and extension namespaces.
 - [Agent Skills specification](https://agentskills.io/specification): frontmatter, name/description constraints and supporting resources.
 
-Decision: root portable manifest plus Claude compatibility manifest. No Codex compatibility copy is needed on the tested version. Both catalogs resolve `./plugins/otel`; the complete plugin is cached, including shared/ and scripts/. Shared references climb from a skill folder to this plugin root only. Native sessions must demonstrate actual reads before deployment acceptance.
+Decision: root portable manifest plus Claude compatibility manifest. No Codex compatibility copy is needed on the tested version. Both catalogs resolve `./plugins/otel-instrumentation-skills`; the complete plugin is cached, including shared/ and scripts/. Shared references climb from a skill folder to this plugin root only. Native sessions must demonstrate actual reads before deployment acceptance.
 
 Versioned metadata lives only in plugin.meta.json. tools/render_manifests.py renders the portable/Claude manifests and both catalogs. Codex catalog has no duplicated plugin version: it reads the manifest. All fields that carry a version must match exactly.
 

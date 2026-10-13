@@ -1,4 +1,4 @@
-# otel
+# otel-instrumentation-skills
 
 OpenTelemetry skills for Claude Code and Codex. One plugin, one skill tree, two client catalogs.
 
@@ -39,7 +39,7 @@ plugin.meta.json                 canonical package metadata
 sources.lock.json                synthesis provenance, not runtime knowledge
 .claude-plugin/marketplace.json   generated Claude catalog
 .agents/plugins/marketplace.json  generated Codex catalog
-plugins/otel/
+plugins/otel-instrumentation-skills/
   plugin.json                    generated portable Agent Plugins manifest
   .claude-plugin/plugin.json     generated Claude compatibility manifest
   skills/*/SKILL.md               the only canonical skill implementation
@@ -51,13 +51,13 @@ tests/                           deterministic helper contract tests
 .github/workflows/ci.yml         GitHub Actions running just check
 ```
 
-Both catalogs resolve the same `./plugins/otel`. Codex reads the portable manifest directly; Claude reads its generated compatibility manifest. Shared links stay inside the plugin root and survive native caching. Packaging evidence and official references are in [standards.md](docs/standards.md).
+Both catalogs resolve the same `./plugins/otel-instrumentation-skills`. Codex reads the portable manifest directly; Claude reads its generated compatibility manifest. Shared links stay inside the plugin root and survive native caching. Packaging evidence and official references are in [standards.md](docs/standards.md).
 
 ## Fresh facts
 
 Every skill begins with project discovery and shared source/observability/verification policies. Agents resolve installed package/component versions, fetch the corresponding official source and report provenance. The Python helper supports exact-ref file/tree lookup, bounded semantic-convention search, release information and individual npm/PyPI/Go package metadata. No proprietary credential is required and no cache is maintained. Output includes retrieval time, URL, requested ref/resolved commit and limitations. A failed tag never falls back silently to latest.
 
-See [lookup-tools.md](plugins/otel/shared/lookup-tools.md). The semconv helper is a text-search aid, not a registry resolver. Follow referenced definitions and read the selected group. Static emission analysis is explicitly distinct from upstream specifications and runtime observations.
+See [lookup-tools.md](plugins/otel-instrumentation-skills/shared/lookup-tools.md). The semconv helper is a text-search aid, not a registry resolver. Follow referenced definitions and read the selected group. Static emission analysis is explicitly distinct from upstream specifications and runtime observations.
 
 ## Installation
 
@@ -67,27 +67,27 @@ Claude Code:
 
 ```sh
 claude plugin marketplace add rknightion/otel-instrumentation-skills
-claude plugin install otel@otel --scope user
+claude plugin install otel-instrumentation-skills@otel-instrumentation-skills --scope user
 ```
 
 Codex:
 
 ```sh
 codex plugin marketplace add rknightion/otel-instrumentation-skills
-codex plugin add otel@otel
+codex plugin add otel-instrumentation-skills@otel-instrumentation-skills
 ```
 
-The marketplace and plugin are both named `otel`. Restart sessions after installation. Claude invokes `/otel:otel-go`; Codex can discover and invoke `otel-go` from the plugin. Read the loaded skill before using its shared references.
+The marketplace and plugin are both named `otel-instrumentation-skills`. Restart sessions after installation. Claude invokes `/otel-instrumentation-skills:otel-go`; Codex can discover and invoke `otel-go` from the plugin. Read the loaded skill before using its shared references.
 
 ## Updates and versioning
 
 Edit canonical content and plugin.meta.json. PATCH is normal guidance/source-workflow fixes; MINOR adds skills/capabilities or substantial compatible workflows; MAJOR breaks structure, invocation or behavior. Run `just render`; `just check` rejects stale manifests or mismatched versions. Bump the version whenever installed content changes because client caches use it.
 
 ```sh
-claude plugin marketplace update otel
-claude plugin update otel@otel --scope user
-codex plugin marketplace upgrade otel
-codex plugin add otel@otel
+claude plugin marketplace update otel-instrumentation-skills
+claude plugin update otel-instrumentation-skills@otel-instrumentation-skills --scope user
+codex plugin marketplace upgrade otel-instrumentation-skills
+codex plugin add otel-instrumentation-skills@otel-instrumentation-skills
 ```
 
 Explicit updates and fresh sessions are the verified path; a running session does not prove new content loaded.
@@ -96,13 +96,13 @@ Explicit updates and fresh sessions are the verified path; a running session doe
 
 `just check` runs JSON/frontmatter/inventory checks, deterministic manifest comparison, portable field/version checks, internal links, stale-knowledge lint, Python syntax/contract tests and eval fixture checks. It also invokes Claude native validation when available, explicitly reporting a skip otherwise. GitHub Actions runs `just check` on every push and pull request; it does not perform authenticated live model evals.
 
-For a full official portable-schema check, fetch the schema URL in plugin.json and validate with a JSON Schema implementation. Installed Codex 0.155.1 has no separate plugin validator: native marketplace/add/list plus fresh-session loading is its integration gate. The bundled legacy plugin-creator validator requires a compatibility file and is not the validator for this portable-only Codex package.
+For a full official portable-schema check, fetch the schema URL in plugin.json and validate with a JSON Schema implementation. Codex 0.155.1, the version tested in September 2026, had no separate plugin validator: native marketplace/add/list plus fresh-session loading is its integration gate. The bundled legacy plugin-creator validator requires a compatibility file and is not the validator for this portable-only Codex package.
 
-The 18 cases in [corpus.json](plugins/otel/evals/corpus.json) have explicit pass/fail criteria. They cover Go review/upgrade, Python/Node setup, semconv, propagation, duplicate instrumentation, dimension/label hygiene, Collector/OTTL, emissions, telemetrygen, default retention, explicit sampling and browser exclusion. Fixtures intentionally contain defects; their versions are test inputs, never recommendations.
+The 18 cases in [corpus.json](plugins/otel-instrumentation-skills/evals/corpus.json) have explicit pass/fail criteria. They cover Go review/upgrade, Python/Node setup, semconv, propagation, duplicate instrumentation, dimension/label hygiene, Collector/OTTL, emissions, telemetrygen, default retention, explicit sampling and browser exclusion. Fixtures intentionally contain defects; their versions are test inputs, never recommendations. The `go.mod`, `pyproject.toml` and `package.json` files under `evals/fixtures` are not dependencies of this repository, so a dependency alert or update pull request against them should be dismissed rather than applied.
 
 ```sh
 just eval no-sampling
-claude plugin eval ./plugins/otel --runs 1 --judge-model opus --trust-plugin --scaffold --allow-tools WebFetch WebSearch --no-publish --output-dir .local/evals/all
+claude plugin eval ./plugins/otel-instrumentation-skills --runs 1 --judge-model opus --trust-plugin --scaffold --allow-tools WebFetch WebSearch --no-publish --output-dir .local/evals/all
 ```
 
 The LLM grader uses `focus: trace` (the native judge sees the first and last 12 messages, not every middle message); use full local transcripts when auditing omitted evidence. The documented recipe uses Opus for the nuanced rubric. The native runner seeds identical fixtures in both arms, starts fresh sessions and grades tool/output evidence. Default ablation compares with/without the plugin. One run is smoke evidence, not statistical proof of improvement; use at least three runs for a meaningful comparison. Models/providers, case IDs, artifact revision and both-arm results must be recorded. Keep raw transcripts local and publish sanitized summaries only. Web-only evals intentionally cannot establish compile/runtime delivery. Separate installed-profile sessions prove native discovery and shared-file access. For implementation evals, use authorized disposable workspaces with Bash permissions and real telemetry sinks; do not label advisory evals as live telemetry proof.
@@ -123,14 +123,14 @@ No skill prose, code or generated inventory was copied from either project. [sou
 - New skill missing: verify catalog registration, enabled plugin, cache version and a fresh session. Relative paths start at the loaded skill file, not project cwd.
 - Lookup fails/rate limits: use exact tagged official source or report the missing evidence. No invented defaults or automatic latest fallback.
 - Eval sandbox cannot exclude existing credential paths: use read/WebFetch/WebSearch-only evals as supplied, or repair the independently owned local configuration. Do not weaken sandbox protections or claim runtime validation.
-- Older OTel skill conflict: install and functionally verify otel first, then disable only the conflicting OTel plugin or skill. Preserve unrelated tools.
+- Older OTel skill conflict: install and functionally verify otel-instrumentation-skills first, then disable only the conflicting OTel plugin or skill. Preserve unrelated tools.
 
 ## Updating the OTel plugin with a coding agent
 
 Copy this complete prompt into a capable coding agent:
 
 ```text
-Update this otel plugin end-to-end. Read AGENTS.md, README.md, docs/standards.md, the architecture, shared policies, renderer and evals before changing anything. Read sources.lock.json and record its before commits.
+Update this otel-instrumentation-skills plugin end-to-end. Read AGENTS.md, README.md, docs/standards.md, the architecture, shared policies, renderer and evals before changing anything. Read sources.lock.json and record its before commits.
 
 Fetch the latest default branches of https://github.com/ollygarden/opentelemetry-agent-skills and https://github.com/dash0hq/agent-skills into temporary checkouts outside the repository. Compare each against the exact recorded commit; inspect meaningful changed areas rather than copying their trees. Verify their licences/notices and research current authoritative OpenTelemetry sources for changed technical guidance.
 

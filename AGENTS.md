@@ -1,5 +1,5 @@
-# otel
-One canonical plugin lives in plugins/otel. Read README.md and sources.lock.json first.
+# otel-instrumentation-skills
+One canonical plugin lives in plugins/otel-instrumentation-skills. Read README.md and sources.lock.json first.
 Encode durable decisions; fetch mutable OTel facts at invocation. Preserve telemetry by default.
 Do not copy upstream skill trees. If upstream text or code is ever copied, update THIRD_PARTY_NOTICES.md and the README acknowledgements in the same change.
 Change plugin.meta.json and run just render for metadata.

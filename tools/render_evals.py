@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EVALS = ROOT / "plugins/otel/evals"
+EVALS = ROOT / "plugins/otel-instrumentation-skills/evals"
 
 
 def outputs():

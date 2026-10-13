@@ -42,5 +42,5 @@ render:
 # Run a native live Claude eval with baseline comparison.
 [group('check')]
 eval case="no-sampling":
-    claude plugin eval ./plugins/otel --case '{{ case }}' --runs 1 --judge-model opus --trust-plugin --scaffold --allow-tools WebFetch WebSearch --no-publish --output-dir .local/evals/{{ case }}
+    claude plugin eval ./plugins/otel-instrumentation-skills --case '{{ case }}' --runs 1 --judge-model opus --trust-plugin --scaffold --allow-tools WebFetch WebSearch --no-publish --output-dir .local/evals/{{ case }}
 

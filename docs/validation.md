@@ -2,7 +2,7 @@
 
 Verification date: 2026-09-19. This report separates installation, source-based agent behavior, static checks and runtime telemetry. It is not a claim that every generated OTel recommendation is correct or production-validated.
 
-Version `1.0.3`. Evidence predates publication on GitHub; the plugin payload is unchanged by that move.
+The evidence below was gathered on version `1.0.3`, before publication on GitHub, when the plugin and marketplace were named `otel` and lived at `plugins/otel`. Version 2.0.0 renamed them to `otel-instrumentation-skills`; the skill content is otherwise unchanged.
 
 ## Deterministic and native checks
 

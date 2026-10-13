@@ -9,7 +9,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-P = ROOT / "plugins/otel"
+P = ROOT / "plugins/otel-instrumentation-skills"
 
 
 def check():
@@ -24,6 +24,8 @@ def check():
             x.startswith(".") for x in p.relative_to(ROOT).parts[:-1]
         ) or p.name in ["plugin.json", "marketplace.json"]:
             json.loads(p.read_text())
+    extra = sorted(d.name for d in (ROOT / "plugins").iterdir() if d != P)
+    assert not extra, f"Unexpected plugin directories: {extra}"
     meta = json.loads((ROOT / "plugin.meta.json").read_text())
     assert re.fullmatch(r"(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)", meta["version"]), (
         "Invalid release version"

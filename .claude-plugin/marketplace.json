@@ -1,16 +1,16 @@
 {
-  "name": "otel",
+  "name": "otel-instrumentation-skills",
   "owner": {
     "name": "Rob Knight"
   },
   "metadata": {
-    "version": "1.0.4",
+    "version": "2.0.0",
     "description": "OpenTelemetry signal quality with durable workflows and fresh, version-correct upstream evidence."
   },
   "plugins": [
     {
-      "name": "otel",
-      "version": "1.0.4",
+      "name": "otel-instrumentation-skills",
+      "version": "2.0.0",
       "description": "OpenTelemetry signal quality with durable workflows and fresh, version-correct upstream evidence.",
       "author": {
         "name": "Rob Knight"
@@ -23,7 +23,7 @@
         "collector",
         "semantic-conventions"
       ],
-      "source": "./plugins/otel"
+      "source": "./plugins/otel-instrumentation-skills"
     }
   ]
 }
