@@ -66,14 +66,14 @@ Prerequisites: a current Claude Code or Codex CLI, Git and Python 3.11+ (the loo
 Claude Code:
 
 ```sh
-claude plugin marketplace add rknightion/otel
+claude plugin marketplace add rknightion/otel-instrumentation-skills
 claude plugin install otel@otel --scope user
 ```
 
 Codex:
 
 ```sh
-codex plugin marketplace add rknightion/otel
+codex plugin marketplace add rknightion/otel-instrumentation-skills
 codex plugin add otel@otel
 ```
 
