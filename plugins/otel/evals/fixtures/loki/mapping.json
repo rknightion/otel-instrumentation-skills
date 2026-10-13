@@ -1,0 +1,1 @@
+{"structured_log": {"user_id": "u-123", "request_id": "r-456", "message": "checkout completed"}, "proposed_stream_labels": ["service", "user_id", "request_id"], "backend": "Grafana Cloud Loki", "backend_version": "unknown"}

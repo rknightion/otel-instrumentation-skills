@@ -1,0 +1,1618 @@
+{
+  "interpretation": "Native smoke scores, one run per arm. Failed verdicts are retained. Trace-focus judge sees first/last 12 messages only. See validation.md for boundaries.",
+  "runs": [
+    {
+      "local_report": ".local/evals/no-sampling-web/report.html",
+      "aggregate_sha256": "3d230bc6429d245d6abe7e786861387457f6321cc03d96316f9547459a056087",
+      "started_at": "2026-09-19T19:12:47.126Z",
+      "claude_version": "2.1.278",
+      "duration_seconds": 563,
+      "partial": false,
+      "suite": {
+        "ablation": "with-without",
+        "caseFilter": "no-sampling",
+        "threshold": 1,
+        "concurrency": 1,
+        "plugins": [
+          {
+            "name": "otel",
+            "version": "1.0.0",
+            "path": "plugins/otel"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "case": "no-sampling",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0,
+            "scoreWithout": 0,
+            "passRateWithout": 0,
+            "delta": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 40,
+                "durationSeconds": 316,
+                "startedAt": "2026-09-19T19:12:47.148Z",
+                "error": null
+              }
+            ],
+            "without": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 17,
+                "durationSeconds": 247,
+                "startedAt": "2026-09-19T19:18:03.316Z",
+                "error": "exit 1: Reached maximum number of turns (16)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "local_report": ".local/evals/v1.0.1-all/report.html",
+      "aggregate_sha256": "928f8e757e7dedd936445de188d0ea6de6e5cbce3e057228e365118485f562c6",
+      "started_at": "2026-09-19T19:23:06.325Z",
+      "claude_version": "2.1.278",
+      "duration_seconds": 501,
+      "partial": false,
+      "suite": {
+        "ablation": "none",
+        "threshold": 1,
+        "concurrency": 4,
+        "plugins": [
+          {
+            "name": "otel",
+            "version": "1.0.1",
+            "path": "plugins/otel"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "case": "browser-excluded",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 84,
+                "startedAt": "2026-09-19T19:23:06.366Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "collector-version",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 13,
+                "durationSeconds": 98,
+                "startedAt": "2026-09-19T19:23:06.366Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "duplicate-spans",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 17,
+                "durationSeconds": 87,
+                "startedAt": "2026-09-19T19:23:06.366Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "dynamic-operation",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 18,
+                "durationSeconds": 109,
+                "startedAt": "2026-09-19T19:23:06.366Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "emissions",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 106,
+                "startedAt": "2026-09-19T19:24:29.994Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "explicit-sampling",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 84,
+                "startedAt": "2026-09-19T19:24:33.660Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-review",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 95,
+                "startedAt": "2026-09-19T19:24:44.026Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-upgrade",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 19,
+                "durationSeconds": 135,
+                "startedAt": "2026-09-19T19:24:55.112Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "loki-labels",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 15,
+                "durationSeconds": 92,
+                "startedAt": "2026-09-19T19:25:58.076Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "metric-uid",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 102,
+                "startedAt": "2026-09-19T19:26:15.527Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "no-sampling",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 111,
+                "startedAt": "2026-09-19T19:26:19.065Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "node-startup",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 17,
+                "durationSeconds": 87,
+                "startedAt": "2026-09-19T19:27:10.004Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "ottl-current",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 13,
+                "durationSeconds": 113,
+                "startedAt": "2026-09-19T19:27:29.984Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "preserve-context",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 15,
+                "durationSeconds": 103,
+                "startedAt": "2026-09-19T19:27:57.591Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "propagation",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 86,
+                "startedAt": "2026-09-19T19:28:09.659Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "python-fastapi",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 105,
+                "startedAt": "2026-09-19T19:28:36.693Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "semconv-lookup",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 87,
+                "startedAt": "2026-09-19T19:29:23.376Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "telemetrygen",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 19,
+                "durationSeconds": 111,
+                "startedAt": "2026-09-19T19:29:35.409Z",
+                "error": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "local_report": ".local/evals/browser-judge-check/report.html",
+      "aggregate_sha256": "8652c20435f54bb8edc45676b2c17d32f22952363761d250404b0736ac8d2803",
+      "started_at": "2026-09-19T19:25:55.588Z",
+      "claude_version": "2.1.278",
+      "duration_seconds": 89,
+      "partial": false,
+      "suite": {
+        "ablation": "none",
+        "judgeModel": "sonnet",
+        "caseFilter": "browser-excluded",
+        "threshold": 1,
+        "concurrency": 1,
+        "plugins": [
+          {
+            "name": "otel",
+            "version": "1.0.1",
+            "path": "plugins/otel"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "case": "browser-excluded",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 18,
+                "durationSeconds": 89,
+                "startedAt": "2026-09-19T19:25:55.882Z",
+                "error": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "local_report": ".local/evals/v1.0.2-all/report.html",
+      "aggregate_sha256": "26c1f4eb8fe05f83425b94d763ddeab0b1e0f77428799b3e043f45b8e16feca3",
+      "started_at": "2026-09-19T19:32:39.708Z",
+      "claude_version": "2.1.278",
+      "duration_seconds": 481,
+      "partial": false,
+      "suite": {
+        "ablation": "none",
+        "judgeModel": "sonnet",
+        "threshold": 1,
+        "concurrency": 4,
+        "plugins": [
+          {
+            "name": "otel",
+            "version": "1.0.2",
+            "path": "plugins/otel"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "case": "browser-excluded",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 86,
+                "startedAt": "2026-09-19T19:32:39.968Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "collector-version",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 84,
+                "startedAt": "2026-09-19T19:32:39.968Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "duplicate-spans",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 96,
+                "startedAt": "2026-09-19T19:32:39.968Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "dynamic-operation",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 17,
+                "durationSeconds": 113,
+                "startedAt": "2026-09-19T19:32:39.968Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "emissions",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 15,
+                "durationSeconds": 87,
+                "startedAt": "2026-09-19T19:34:04.261Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "explicit-sampling",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 85,
+                "startedAt": "2026-09-19T19:34:05.619Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-review",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 112,
+                "startedAt": "2026-09-19T19:34:15.696Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-upgrade",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 112,
+                "startedAt": "2026-09-19T19:34:32.582Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "loki-labels",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 14,
+                "durationSeconds": 68,
+                "startedAt": "2026-09-19T19:35:30.696Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "metric-uid",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 17,
+                "durationSeconds": 95,
+                "startedAt": "2026-09-19T19:35:30.830Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "no-sampling",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 122,
+                "startedAt": "2026-09-19T19:36:07.818Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "node-startup",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 108,
+                "startedAt": "2026-09-19T19:36:24.800Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "ottl-current",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 134,
+                "startedAt": "2026-09-19T19:36:39.032Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "preserve-context",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 15,
+                "durationSeconds": 90,
+                "startedAt": "2026-09-19T19:37:05.400Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "propagation",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 17,
+                "durationSeconds": 95,
+                "startedAt": "2026-09-19T19:38:09.730Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "python-fastapi",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 87,
+                "startedAt": "2026-09-19T19:38:12.792Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "semconv-lookup",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 96,
+                "startedAt": "2026-09-19T19:38:35.211Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "telemetrygen",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 16,
+                "durationSeconds": 107,
+                "startedAt": "2026-09-19T19:38:53.472Z",
+                "error": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "local_report": ".local/evals/v1.0.2-baseline/report.html",
+      "aggregate_sha256": "2f57cd184043b08b3868240e262677818e6713234d084ca6c997f53aad69909a",
+      "started_at": "2026-09-19T19:37:54.331Z",
+      "claude_version": "2.1.278",
+      "duration_seconds": 205,
+      "partial": false,
+      "suite": {
+        "ablation": "with-without",
+        "judgeModel": "sonnet",
+        "caseFilter": "browser-excluded",
+        "threshold": 1,
+        "concurrency": 1,
+        "plugins": [
+          {
+            "name": "otel",
+            "version": "1.0.2",
+            "path": "plugins/otel"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "case": "browser-excluded",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1,
+            "scoreWithout": 0,
+            "passRateWithout": 0,
+            "delta": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 17,
+                "durationSeconds": 94,
+                "startedAt": "2026-09-19T19:37:54.363Z",
+                "error": null
+              }
+            ],
+            "without": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 13,
+                "durationSeconds": 111,
+                "startedAt": "2026-09-19T19:39:28.179Z",
+                "error": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "local_report": ".local/evals/v1.0.3-all/report.html",
+      "aggregate_sha256": "b05e8ba6c8c228cceea2026b3263266a45bc1fc4b02e4fbd3c0ded5d065916eb",
+      "started_at": "2026-09-19T19:42:53.958Z",
+      "claude_version": "2.1.278",
+      "duration_seconds": 614,
+      "partial": false,
+      "suite": {
+        "ablation": "none",
+        "judgeModel": "sonnet",
+        "threshold": 1,
+        "concurrency": 4,
+        "plugins": [
+          {
+            "name": "otel",
+            "version": "1.0.3",
+            "path": "plugins/otel"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "case": "browser-excluded",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 20,
+                "durationSeconds": 134,
+                "startedAt": "2026-09-19T19:42:53.995Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "collector-version",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 21,
+                "durationSeconds": 146,
+                "startedAt": "2026-09-19T19:42:53.995Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "duplicate-spans",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 18,
+                "durationSeconds": 100,
+                "startedAt": "2026-09-19T19:42:53.995Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "dynamic-operation",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 21,
+                "durationSeconds": 140,
+                "startedAt": "2026-09-19T19:42:53.995Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "emissions",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 20,
+                "durationSeconds": 112,
+                "startedAt": "2026-09-19T19:44:33.662Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "explicit-sampling",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 18,
+                "durationSeconds": 110,
+                "startedAt": "2026-09-19T19:45:07.639Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-review",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 20,
+                "durationSeconds": 144,
+                "startedAt": "2026-09-19T19:45:14.251Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-upgrade",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 25,
+                "durationSeconds": 180,
+                "startedAt": "2026-09-19T19:45:19.922Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "loki-labels",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 18,
+                "durationSeconds": 101,
+                "startedAt": "2026-09-19T19:46:25.931Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "metric-uid",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 22,
+                "durationSeconds": 127,
+                "startedAt": "2026-09-19T19:46:57.235Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "no-sampling",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 20,
+                "durationSeconds": 138,
+                "startedAt": "2026-09-19T19:47:37.787Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "node-startup",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 21,
+                "durationSeconds": 129,
+                "startedAt": "2026-09-19T19:48:07.173Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "ottl-current",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 20,
+                "durationSeconds": 132,
+                "startedAt": "2026-09-19T19:48:20.405Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "preserve-context",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 18,
+                "durationSeconds": 116,
+                "startedAt": "2026-09-19T19:49:03.936Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "propagation",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 20,
+                "durationSeconds": 104,
+                "startedAt": "2026-09-19T19:49:55.608Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "python-fastapi",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 20,
+                "durationSeconds": 119,
+                "startedAt": "2026-09-19T19:50:16.586Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "semconv-lookup",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 19,
+                "durationSeconds": 113,
+                "startedAt": "2026-09-19T19:50:32.354Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "telemetrygen",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 19,
+                "durationSeconds": 127,
+                "startedAt": "2026-09-19T19:51:00.399Z",
+                "error": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "local_report": ".local/evals/v1.0.3-opus/report.html",
+      "aggregate_sha256": "8c9f32861751b50d695a0b1173788302d0579c1b72411422125730ed1dd51e70",
+      "started_at": "2026-09-19T19:53:26.774Z",
+      "claude_version": "2.1.278",
+      "duration_seconds": 635,
+      "partial": false,
+      "suite": {
+        "ablation": "none",
+        "judgeModel": "opus",
+        "threshold": 1,
+        "concurrency": 4,
+        "plugins": [
+          {
+            "name": "otel",
+            "version": "1.0.3",
+            "path": "plugins/otel"
+          }
+        ]
+      },
+      "cases": [
+        {
+          "case": "browser-excluded",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 16,
+                "durationSeconds": 79,
+                "startedAt": "2026-09-19T19:53:26.811Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "collector-version",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 20,
+                "durationSeconds": 139,
+                "startedAt": "2026-09-19T19:53:26.811Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "duplicate-spans",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 19,
+                "durationSeconds": 98,
+                "startedAt": "2026-09-19T19:53:26.811Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "dynamic-operation",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 22,
+                "durationSeconds": 171,
+                "startedAt": "2026-09-19T19:53:26.811Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "emissions",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 20,
+                "durationSeconds": 110,
+                "startedAt": "2026-09-19T19:54:45.319Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "explicit-sampling",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 19,
+                "durationSeconds": 112,
+                "startedAt": "2026-09-19T19:55:05.062Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-review",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 20,
+                "durationSeconds": 144,
+                "startedAt": "2026-09-19T19:55:45.347Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "go-upgrade",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 22,
+                "durationSeconds": 137,
+                "startedAt": "2026-09-19T19:56:17.887Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "loki-labels",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 18,
+                "durationSeconds": 109,
+                "startedAt": "2026-09-19T19:56:35.713Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "metric-uid",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 19,
+                "durationSeconds": 160,
+                "startedAt": "2026-09-19T19:56:57.262Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "no-sampling",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 21,
+                "durationSeconds": 143,
+                "startedAt": "2026-09-19T19:58:09.375Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "node-startup",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 21,
+                "durationSeconds": 143,
+                "startedAt": "2026-09-19T19:58:24.955Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "ottl-current",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 19,
+                "durationSeconds": 133,
+                "startedAt": "2026-09-19T19:58:34.391Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "preserve-context",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 19,
+                "durationSeconds": 131,
+                "startedAt": "2026-09-19T19:59:37.130Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "propagation",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 20,
+                "durationSeconds": 103,
+                "startedAt": "2026-09-19T20:00:32.195Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "python-fastapi",
+          "aggregates": {
+            "score": 0,
+            "passRate": 0
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 0,
+                "passed": false,
+                "turns": 20,
+                "durationSeconds": 156,
+                "startedAt": "2026-09-19T20:00:47.551Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "semconv-lookup",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 22,
+                "durationSeconds": 125,
+                "startedAt": "2026-09-19T20:00:47.597Z",
+                "error": null
+              }
+            ]
+          }
+        },
+        {
+          "case": "telemetrygen",
+          "aggregates": {
+            "score": 1,
+            "passRate": 1
+          },
+          "arms": {
+            "with": [
+              {
+                "score": 1,
+                "passed": true,
+                "turns": 21,
+                "durationSeconds": 133,
+                "startedAt": "2026-09-19T20:01:48.310Z",
+                "error": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

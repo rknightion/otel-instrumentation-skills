@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    permissions:
+      contents: read
+    uses: rknightion/.github/.github/workflows/just-check.yml@1a8cf1f4970b9ffd51e395f7075dcc0174a09777 # v1.25.7

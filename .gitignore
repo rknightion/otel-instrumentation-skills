@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.local/
+evals/results/
+**/evals/results/
+.DS_Store

@@ -1,0 +1,16 @@
+{
+  "name": "otel",
+  "version": "1.0.4",
+  "description": "OpenTelemetry signal quality with durable workflows and fresh, version-correct upstream evidence.",
+  "author": {
+    "name": "Rob Knight"
+  },
+  "repository": "https://github.com/rknightion/otel",
+  "license": "Apache-2.0",
+  "keywords": [
+    "opentelemetry",
+    "instrumentation",
+    "collector",
+    "semantic-conventions"
+  ]
+}

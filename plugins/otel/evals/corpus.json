@@ -1,0 +1,146 @@
+[
+  {
+    "id": "go-review",
+    "skill": "otel-instrumentation",
+    "fixture": "go",
+    "prompt": "Review this Go instrumentation for correctness, propagation, cardinality and runtime overhead. Keep telemetry.",
+    "pass_criteria": "Inspect go.mod and source; identify discarded incoming context, redundant server span, missing provider/flush, UID dimensions; fetch exact-version source; avoid sampling.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "dynamic-operation",
+    "skill": "otel-semantic-conventions",
+    "fixture": "go",
+    "prompt": "Check HTTP operation names against the semantic conventions appropriate to this project.",
+    "pass_criteria": "Inspect versions and instrumentation schema evidence; flag literal URL IDs; retrieve released HTTP naming rule; recommend route template or allowed fallback; no invented semconv version.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "metric-uid",
+    "skill": "otel-instrumentation",
+    "fixture": "go",
+    "prompt": "The metric uses app.user_id as a dimension. Improve this.",
+    "pass_criteria": "Identify unbounded dimension; bound/remove it from metric grouping while retaining useful span/log context; hashing is not a cardinality fix.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "loki-labels",
+    "skill": "otel-instrumentation",
+    "fixture": "loki",
+    "prompt": "Keep user IDs useful in logs without turning them into Loki stream labels.",
+    "pass_criteria": "Read mapping; retain structured user/request fields; reject unbounded labels; retrieve official Grafana label/mapping guidance; do not claim automatic backend normalization.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "preserve-context",
+    "skill": "otel-ottl",
+    "fixture": "collector",
+    "prompt": "Normalize request-specific operation names but preserve the original name as context.",
+    "pass_criteria": "Inspect Collector version/config; verify functions at exact tag; preserve original context; nonmatching records survive; identify validation limits.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "propagation",
+    "skill": "otel-go",
+    "fixture": "go",
+    "prompt": "Diagnose why downstream spans lose the incoming parent.",
+    "pass_criteria": "Read handler and module versions; identify context.Background reset; verify incoming middleware and outgoing propagation against pinned sources; propose concurrent boundary test.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "duplicate-spans",
+    "skill": "otel-go",
+    "fixture": "go",
+    "prompt": "Why do requests have two server spans?",
+    "pass_criteria": "Read automatic/manual setup and notes; identify duplicate boundary; prefer enriching active span; preserve distinct business spans.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "python-fastapi",
+    "skill": "otel-python",
+    "fixture": "python",
+    "prompt": "Add an instrumentation plan for this FastAPI service using current compatible packages.",
+    "pass_criteria": "Inspect interpreter/dependencies; retrieve framework instrumentation compatibility and current package metadata; distinguish current candidates from installed; async context and shutdown tests; avoid duplicate patching.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "node-startup",
+    "skill": "otel-js",
+    "fixture": "node",
+    "prompt": "Plan working OpenTelemetry startup for this Node service.",
+    "pass_criteria": "Read package.json and startup; identify ESM and late initialization; query version-correct loader/API and package compatibility; verify production startup; no browser guidance.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "collector-version",
+    "skill": "otel-collector",
+    "fixture": "collector",
+    "prompt": "Verify every component and config key against the Collector version here before recommending changes.",
+    "pass_criteria": "Read identity and config; fetch exact tagged component/core helper docs/source; confirm distribution inventory; report binary validation unrun if unavailable.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "ottl-current",
+    "skill": "otel-ottl",
+    "fixture": "collector",
+    "prompt": "Write a transform preserving the original span name and normalizing /orders/123 to a route form. Verify syntax/functions for this Collector.",
+    "pass_criteria": "Inspect version; retrieve function signatures/contexts and component config at tag; preserve originals; guard appropriate types/missing values; provide before/after fixture tests; no guessed function.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "semconv-lookup",
+    "skill": "otel-semantic-conventions",
+    "fixture": "go",
+    "prompt": "Which convention should govern HTTP server span names here?",
+    "pass_criteria": "Inspect installed instrumentation and semconv import/schema evidence; query a released group narrowly; cite version/group/source and fallback; no frozen attribute table.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "go-upgrade",
+    "skill": "otel-upgrade",
+    "fixture": "go",
+    "prompt": "Assess a safe OTel dependency upgrade and whether emitted telemetry changes. This eval is read-only.",
+    "pass_criteria": "Inventory separate module lines; query live releases; inspect changelog interval and actual use; distinguish latest from validated; avoid unrelated churn; describe emission comparison and limits.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "emissions",
+    "skill": "otel-telemetry-emissions",
+    "fixture": "collector",
+    "prompt": "What telemetry does the selected Collector component/version emit? Inspect what you need first.",
+    "pass_criteria": "Establish component and selected version; use tagged metadata/source/tests; separate specified, detected and observed behavior; no unsupported exhaustive claim.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "telemetrygen",
+    "skill": "otel-telemetrygen",
+    "fixture": "collector",
+    "prompt": "Build a bounded local verification procedure for this Collector transform with telemetrygen.",
+    "pass_criteria": "Read Collector version; retrieve actual help or tagged command source before flags; finite local workload; inspect output and counts; sender exit is not receipt proof.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "no-sampling",
+    "skill": "otel-instrumentation",
+    "fixture": "go",
+    "prompt": "Optimise telemetry. We want lower overhead and useful signals.",
+    "pass_criteria": "Read actual instrumentation; no cost-driven sampling/filtering; preserve telemetry; separate CPU/allocation, export, Collector and cardinality; prioritize correctness/duplication.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "explicit-sampling",
+    "skill": "otel-collector",
+    "fixture": "collector",
+    "prompt": "Intentionally introduce trace sampling in a disposable copy for an experiment; explain the tradeoffs. Read-only design in this eval.",
+    "pass_criteria": "Recognize explicit permission; retrieve current version-correct sampling mechanisms; explain loss, propagation/state/scaling and validation; do not refuse all sampling or silently change live config.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  },
+  {
+    "id": "browser-excluded",
+    "skill": "otel-js",
+    "fixture": "node",
+    "prompt": "Instrument our browser frontend with the OTel browser SDK.",
+    "pass_criteria": "State browser OTel is intentionally outside plugin scope and Faro is the user preference; do not invent a browser skill or force Node setup into the browser; explicit user preference changes can be clarified.",
+    "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
+  }
+]

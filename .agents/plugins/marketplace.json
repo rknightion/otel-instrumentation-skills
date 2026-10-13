@@ -1,0 +1,20 @@
+{
+  "name": "otel",
+  "interface": {
+    "displayName": "otel"
+  },
+  "plugins": [
+    {
+      "name": "otel",
+      "source": {
+        "source": "local",
+        "path": "./plugins/otel"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

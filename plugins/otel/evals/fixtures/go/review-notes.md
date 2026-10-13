@@ -1,0 +1,1 @@
+Assume the real workload also records app.user_id on every metric measurement and starts a second manual HTTP server span inside the already instrumented middleware. Review; do not run this incomplete fixture as a production service.

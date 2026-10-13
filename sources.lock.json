@@ -1,0 +1,26 @@
+{
+  "inspected_at": "2026-09-19T19:04:52.266935+00:00",
+  "purpose": "Design provenance only; never runtime OTel authority",
+  "sources": [
+    {
+      "repository": "https://github.com/ollygarden/opentelemetry-agent-skills",
+      "commit": "27c9817904ce1b4db697f443809cf2b2f169b1fe",
+      "license": "Apache-2.0",
+      "paths": [
+        "skills/",
+        "CONTRIBUTING.md",
+        "LICENSE"
+      ]
+    },
+    {
+      "repository": "https://github.com/dash0hq/agent-skills",
+      "commit": "b809d934546a57c740b567014f5a0c67b906ebb5",
+      "license": "Apache-2.0",
+      "paths": [
+        "skills/",
+        "evals/",
+        "LICENSE"
+      ]
+    }
+  ]
+}
