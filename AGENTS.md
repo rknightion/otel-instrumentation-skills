@@ -6,3 +6,5 @@ Change plugin.meta.json and run just render for metadata.
 Public GitHub repository rknightion/otel-instrumentation-skills: main is the delivery branch. Keep credentials, machine-local state, host names and home paths out; installation and deployment for any particular machine belong outside this repository.
 ## Task interface
 Run just check before committing. Run live evals for meaningful workflow changes and report untested boundaries.
+
+Base runtime conclusions on the recorded evidence from the actual check.
