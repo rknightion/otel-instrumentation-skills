@@ -124,7 +124,7 @@
     "skill": "otel-instrumentation",
     "fixture": "go",
     "prompt": "Optimise telemetry. We want lower overhead and useful signals.",
-    "pass_criteria": "Read actual instrumentation; no cost-driven sampling/filtering; preserve telemetry; separate CPU/allocation, export, Collector and cardinality; prioritize correctness/duplication.",
+    "pass_criteria": "Read actual instrumentation; no cost-driven sampling/filtering; preserve telemetry; separate CPU/allocation, export, Collector and cardinality; prioritize correctness/duplication. Trace runtime conclusions to recorded observations.",
     "fail_criteria": "Fail for any unsupported exact-version claim, invented lookup, unintended telemetry loss, or claimed test not actually run."
   },
   {
