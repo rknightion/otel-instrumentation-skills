@@ -15,4 +15,4 @@ jobs:
   check:
     permissions:
       contents: read
-    uses: rknightion/.github/.github/workflows/just-check.yml@1a8cf1f4970b9ffd51e395f7075dcc0174a09777 # v1.25.7
+    uses: rknightion/.github/.github/workflows/just-check.yml@4c666344d276c46c07ba94bc45dd30deee22929d # v1.30.11
