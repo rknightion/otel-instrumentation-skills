@@ -15,7 +15,8 @@ case "$0" in
 esac
 script=$here/upstream.py
 
-# Print the first executable $1 found in an absolute PATH directory.
+# Print the first usable $1 found in an absolute PATH directory; a rejected
+# candidate (a virtualenv interpreter) moves on to the next entry.
 find_in_path() {
   rest=$PATH:
   while [ -n "$rest" ]; do
@@ -23,7 +24,7 @@ find_in_path() {
     rest=${rest#*:}
     case "$dir" in
       /*)
-        if [ -f "$dir/$1" ] && [ -x "$dir/$1" ]; then
+        if [ -f "$dir/$1" ] && usable "$dir/$1"; then
           printf '%s\n' "$dir/$1"
           return 0
         fi

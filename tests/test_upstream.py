@@ -146,6 +146,24 @@ class LauncherTests(unittest.TestCase):
         result, ran = self.hostile_path_run(lambda safe: f":{safe}")
         self.assertIn("safe", result.stdout)
 
+    def test_venv_on_path_does_not_hide_the_system_interpreter(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            marker = tmp / "marker"
+            venv_bin = tmp / "venv" / "bin"
+            system_bin = tmp / "system" / "bin"
+            for d in (venv_bin, system_bin):
+                d.mkdir(parents=True)
+            (tmp / "venv" / "pyvenv.cfg").write_text("home = /nowhere\n")
+            (venv_bin / "python3.15").write_text(f'#!/bin/sh\necho x > "{marker}"\n')
+            (system_bin / "python3.15").write_text('#!/bin/sh\necho "system $*"\n')
+            for d in (venv_bin, system_bin):
+                (d / "python3.15").chmod(0o755)
+            result = self.run_launcher(f"{venv_bin}:{system_bin}")
+            self.assertFalse(marker.exists(), "the venv interpreter ran")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("system", result.stdout)
+
     def test_venv_interpreter_from_uv_is_refused(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
