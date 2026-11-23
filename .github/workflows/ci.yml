@@ -16,3 +16,33 @@ jobs:
     permissions:
       contents: read
     uses: rknightion/.github/.github/workflows/just-check.yml@84486af028f18f4a2d93ee5c4eb954fdd541d800 # v1.31.10
+
+  check-python-3-15:
+    name: check (Python 3.15)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Harden the runner (audit egress)
+        uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.15
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.15"
+
+      - name: Confirm interpreter
+        run: |
+          python3 --version
+          python3 -c 'import sys; assert sys.version_info[:2] == (3, 15), sys.version'
+
+      - name: Run the repository gate
+        run: python3 tools/check.py
