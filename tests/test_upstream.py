@@ -79,21 +79,72 @@ class LauncherTests(unittest.TestCase):
             uv = bin_dir / "uv"
             uv.write_text(
                 "#!/bin/sh\n"
+                'dir=${UV_WORKING_DIR:-$PWD}\n'
+                'if [ "$1" = "--directory" ]; then dir=$2; fi\n'
                 'if [ -n "$VIRTUAL_ENV" ]; then echo "$VIRTUAL_ENV/bin/python"; exit 0; fi\n'
-                'if [ -x "$PWD/.venv/bin/python" ]; then echo "$PWD/.venv/bin/python"; exit 0; fi\n'
+                'if [ -x "$dir/.venv/bin/python" ]; then echo "$dir/.venv/bin/python"; exit 0; fi\n'
                 f'echo "{safe}"\n'
             )
             uv.chmod(0o755)
             result = subprocess.run(
                 ["/bin/sh", str(isolated_launcher(tmp)), "--help"],
                 cwd=hostile,
-                env={"PATH": str(bin_dir), "VIRTUAL_ENV": str(hostile / ".venv")},
+                env={
+                    "PATH": str(bin_dir),
+                    "VIRTUAL_ENV": str(hostile / ".venv"),
+                    "UV_WORKING_DIR": str(hostile),
+                },
                 capture_output=True,
                 text=True,
             )
             self.assertFalse(marker.exists(), "a file from the caller's directory ran")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(f"safe {hostile}", result.stdout)
+
+    def hostile_path_run(self, path_for):
+        """Run the launcher from a directory holding ./python3.15 and ./uv that
+        write a marker, with a safe python3.15 in a separate absolute directory."""
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            safe_dir = tmp / "safe"
+            hostile = tmp / "hostile"
+            safe_dir.mkdir()
+            hostile.mkdir()
+            marker = tmp / "marker"
+            for name in ("python3.15", "uv"):
+                (hostile / name).write_text(f'#!/bin/sh\necho hostile > "{marker}"\n')
+                (hostile / name).chmod(0o755)
+            safe = safe_dir / "python3.15"
+            safe.write_text('#!/bin/sh\necho "safe $*"\n')
+            safe.chmod(0o755)
+            result = subprocess.run(
+                ["/bin/sh", str(isolated_launcher(tmp)), "--help"],
+                cwd=hostile,
+                env={"PATH": path_for(safe_dir)},
+                capture_output=True,
+                text=True,
+            )
+            ran = marker.exists()
+        return result, ran
+
+    def test_dot_in_path_never_runs_a_local_python(self):
+        result, ran = self.hostile_path_run(lambda safe: f".:{safe}")
+        self.assertFalse(ran, "./python3.15 ran")
+        self.assertIn("safe", result.stdout)
+        result, ran = self.hostile_path_run(lambda safe: ".")
+        self.assertFalse(ran, "./python3.15 or ./uv ran")
+        self.assertEqual(result.returncode, 1)
+
+    def test_empty_path_element_never_runs_a_local_python(self):
+        for build in (
+            lambda safe: f":{safe}",
+            lambda safe: f"{safe}::",
+            lambda safe: "",
+        ):
+            result, ran = self.hostile_path_run(build)
+            self.assertFalse(ran, "./python3.15 or ./uv ran")
+        result, ran = self.hostile_path_run(lambda safe: f":{safe}")
+        self.assertIn("safe", result.stdout)
 
     def test_venv_interpreter_from_uv_is_refused(self):
         with tempfile.TemporaryDirectory() as tmp:
