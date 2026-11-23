@@ -1,12 +1,16 @@
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
+# Python 3.15 is the floor, pinned in .python-version. python3 on PATH must be 3.15
+# or newer. Elsewhere: PYTHON="uv run --no-project python" just check
+py := env("PYTHON", "python3")
+
 # List supported tasks.
 default:
     @just --list
 
-# Verify the dependency-free Python runtime.
+# Verify the dependency-free Python 3.15 runtime.
 setup:
-    python3 -c 'import sys; assert sys.version_info >= (3, 11)'
+    {{ py }} -c 'import sys; assert sys.version_info >= (3, 15)' || { echo "Python 3.15 or newer is required: install it with 'brew install python@3.15' or 'uv python install 3.15', then run PYTHON=\"uv run --no-project python\" just <recipe>" >&2; exit 1; }
 
 # Format generated metadata.
 [group('gen')]
@@ -14,30 +18,30 @@ fmt: render
 
 # Check deterministic formatting.
 [group('check')]
-fmt-check:
-    python3 tools/render_manifests.py --check
-    python3 tools/render_evals.py --check
+fmt-check: setup
+    {{ py }} tools/render_manifests.py --check
+    {{ py }} tools/render_evals.py --check
 
 # Validate structure, freshness policy and executable helpers.
 [group('check')]
-lint:
-    python3 tools/check.py
+lint: setup
+    {{ py }} tools/check.py
 
 # Run deterministic contract tests.
 [group('check')]
-test:
-    python3 -m unittest discover -s tests -v
+test: setup
+    {{ py }} -m unittest discover -s tests -v
 
 # Run the complete local gate.
 [group('check')]
-check:
-    python3 tools/check.py
+check: setup
+    {{ py }} tools/check.py
 
 # Generate client manifests from canonical metadata.
 [group('gen')]
-render:
-    python3 tools/render_manifests.py
-    python3 tools/render_evals.py
+render: setup
+    {{ py }} tools/render_manifests.py
+    {{ py }} tools/render_evals.py
 
 # Run a native live Claude eval with baseline comparison.
 [group('check')]

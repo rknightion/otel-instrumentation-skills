@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,10 +15,10 @@ P = ROOT / "plugins/otel-instrumentation-skills"
 
 def check():
     subprocess.run(
-        ["python3", str(ROOT / "tools/render_manifests.py"), "--check"], check=True
+        [sys.executable, str(ROOT / "tools/render_manifests.py"), "--check"], check=True
     )
     subprocess.run(
-        ["python3", str(ROOT / "tools/render_evals.py"), "--check"], check=True
+        [sys.executable, str(ROOT / "tools/render_evals.py"), "--check"], check=True
     )
     for p in ROOT.rglob("*.json"):
         if not any(
@@ -108,7 +109,7 @@ def check():
     for p in list((ROOT / "tools").glob("*.py")) + list((P / "scripts").glob("*.py")):
         ast.parse(p.read_text(), filename=str(p))
     subprocess.run(
-        ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"],
+        [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
         cwd=ROOT,
         check=True,
     )
