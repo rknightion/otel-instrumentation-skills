@@ -1,6 +1,5 @@
 import argparse
 import importlib.util
-import os
 import subprocess
 import tempfile
 import unittest
@@ -22,14 +21,27 @@ HOMEBREW_PYTHONS = [
 ]
 
 
+def isolated_launcher(directory):
+    """Copy the launcher with the fixed Homebrew locations pointed nowhere, so
+    the PATH and uv branches behave the same on a host that has Homebrew 3.15."""
+    text = LAUNCHER.read_text()
+    for path in HOMEBREW_PYTHONS:
+        assert path in text
+        text = text.replace(path, "/nonexistent/python3.15")
+    copy = Path(directory) / "upstream.sh"
+    copy.write_text(text)
+    return copy
+
+
 class LauncherTests(unittest.TestCase):
     def run_launcher(self, path):
-        return subprocess.run(
-            ["/bin/sh", str(LAUNCHER), "--help"],
-            env={"PATH": path},
-            capture_output=True,
-            text=True,
-        )
+        with tempfile.TemporaryDirectory() as copy_dir:
+            return subprocess.run(
+                ["/bin/sh", str(isolated_launcher(copy_dir)), "--help"],
+                env={"PATH": path},
+                capture_output=True,
+                text=True,
+            )
 
     def test_old_python_is_refused(self):
         with self.assertRaises(SystemExit) as raised:
@@ -47,8 +59,6 @@ class LauncherTests(unittest.TestCase):
         self.assertIn("upstream.py --help", result.stdout)
 
     def test_uv_resolves_from_a_neutral_directory(self):
-        if any(os.path.exists(p) for p in HOMEBREW_PYTHONS):
-            self.skipTest("a Homebrew Python 3.15 is installed")
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
             bin_dir = tmp / "bin"
@@ -75,7 +85,7 @@ class LauncherTests(unittest.TestCase):
             )
             uv.chmod(0o755)
             result = subprocess.run(
-                ["/bin/sh", str(LAUNCHER), "--help"],
+                ["/bin/sh", str(isolated_launcher(tmp)), "--help"],
                 cwd=hostile,
                 env={"PATH": str(bin_dir), "VIRTUAL_ENV": str(hostile / ".venv")},
                 capture_output=True,
@@ -86,8 +96,6 @@ class LauncherTests(unittest.TestCase):
         self.assertIn(f"safe {hostile}", result.stdout)
 
     def test_venv_interpreter_from_uv_is_refused(self):
-        if any(os.path.exists(p) for p in HOMEBREW_PYTHONS):
-            self.skipTest("a Homebrew Python 3.15 is installed")
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
             bin_dir = tmp / "bin"
@@ -102,7 +110,7 @@ class LauncherTests(unittest.TestCase):
             uv.write_text(f'#!/bin/sh\necho "{venv}/bin/python"\n')
             uv.chmod(0o755)
             result = subprocess.run(
-                ["/bin/sh", str(LAUNCHER), "--help"],
+                ["/bin/sh", str(isolated_launcher(tmp)), "--help"],
                 env={"PATH": str(bin_dir)},
                 capture_output=True,
                 text=True,
@@ -111,8 +119,6 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
 
     def test_no_python_3_15_exits_with_instructions(self):
-        if any(os.path.exists(p) for p in HOMEBREW_PYTHONS):
-            self.skipTest("a Homebrew Python 3.15 is installed")
         with tempfile.TemporaryDirectory() as empty:
             result = self.run_launcher(empty)
         self.assertEqual(result.returncode, 1)
