@@ -9,8 +9,10 @@ Run just check before committing. Run live evals for meaningful workflow changes
 
 ## Cursor Cloud specific instructions
 
-The base image supplies `just` and Python 3.11 or newer. `just setup` checks
-the Python version and installs no dependencies.
+The base image supplies `just`. The floor is Python 3.15, pinned in `.python-version`.
+`just setup` checks that `python3` is 3.15 or newer and installs no dependencies;
+where the image's `python3` is older, run recipes as
+`PYTHON="uv run --no-project python" just <recipe>`.
 
 - Fast check: `just fmt-check`
 - Full repository gate: `just check`

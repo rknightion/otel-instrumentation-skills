@@ -1,5 +1,8 @@
 import argparse
 import importlib.util
+import os
+import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -10,6 +13,46 @@ spec = importlib.util.spec_from_file_location(
 )
 u = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(u)
+
+
+LAUNCHER = ROOT / "plugins/otel-instrumentation-skills/scripts/upstream.sh"
+HOMEBREW_PYTHONS = [
+    "/opt/homebrew/bin/python3.15",
+    "/home/linuxbrew/.linuxbrew/bin/python3.15",
+]
+
+
+class LauncherTests(unittest.TestCase):
+    def run_launcher(self, path):
+        return subprocess.run(
+            ["/bin/sh", str(LAUNCHER), "--help"],
+            env={"PATH": path},
+            capture_output=True,
+            text=True,
+        )
+
+    def test_old_python_is_refused(self):
+        with self.assertRaises(SystemExit) as raised:
+            u.require_python((3, 14, 3))
+        self.assertIn("3.15", str(raised.exception))
+        u.require_python((3, 15, 0))
+
+    def test_python_3_15_on_path_runs_the_helper(self):
+        with tempfile.TemporaryDirectory() as bin_dir:
+            stub = Path(bin_dir) / "python3.15"
+            stub.write_text('#!/bin/sh\necho "stub $*"\n')
+            stub.chmod(0o755)
+            result = self.run_launcher(bin_dir)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("upstream.py --help", result.stdout)
+
+    def test_no_python_3_15_exits_with_instructions(self):
+        if any(os.path.exists(p) for p in HOMEBREW_PYTHONS):
+            self.skipTest("a Homebrew Python 3.15 is installed")
+        with tempfile.TemporaryDirectory() as empty:
+            result = self.run_launcher(empty)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("Python 3.15", result.stderr)
 
 
 class LookupTests(unittest.TestCase):

@@ -7,9 +7,21 @@ import json
 import re
 import urllib.error
 import urllib.parse
+import sys
 import urllib.request
 
 MAX_BYTES = 8 * 1024 * 1024
+
+
+def require_python(version=sys.version_info):
+    if tuple(version[:2]) < (3, 15):
+        sys.exit(
+            "upstream.py needs Python 3.15 or newer. Start it with scripts/upstream.sh, "
+            "or install 3.15 with 'brew install python@3.15' or 'uv python install 3.15'."
+        )
+
+
+require_python()
 
 
 def fetch(url):

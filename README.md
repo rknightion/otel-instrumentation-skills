@@ -45,6 +45,7 @@ plugins/otel-instrumentation-skills/
   skills/*/SKILL.md               the only canonical skill implementation
   shared/                        source, preference, discovery and verification policies
   scripts/upstream.py            bounded public-source lookup
+  scripts/upstream.sh            launcher that starts it on Python 3.15
   evals/                         18 scenarios, graders and synthetic fixtures
 tools/                           renderer and checker
 tests/                           deterministic helper contract tests
@@ -61,7 +62,7 @@ See [lookup-tools.md](plugins/otel-instrumentation-skills/shared/lookup-tools.md
 
 ## Installation
 
-Prerequisites: a current Claude Code or Codex CLI, Git and Python 3.11+ (the lookup helper and checks are dependency-free).
+Prerequisites: a current Claude Code or Codex CLI, Git and Python 3.15+ (the lookup helper and checks are dependency-free). The helper starts through `scripts/upstream.sh`, which uses `python3.15` on PATH, then Homebrew, then `uv run --no-project --python 3.15`. On a machine with none of those it exits 1 with install instructions; the skills then report the helper as unavailable and fall back to tagged source and official docs. The repository pins 3.15 in `.python-version`; `just` recipes use `python3`, or the command in `PYTHON`, for example `PYTHON="uv run --no-project python" just check`.
 
 Claude Code:
 
@@ -94,7 +95,7 @@ Explicit updates and fresh sessions are the verified path; a running session doe
 
 ## Tests and evals
 
-`just check` runs JSON/frontmatter/inventory checks, deterministic manifest comparison, portable field/version checks, internal links, stale-knowledge lint, Python syntax/contract tests and eval fixture checks. It also invokes Claude native validation when available, explicitly reporting a skip otherwise. GitHub Actions runs `just check` on every push and pull request; it does not perform authenticated live model evals.
+`just check` runs JSON/frontmatter/inventory checks, deterministic manifest comparison, portable field/version checks, internal links, stale-knowledge lint, Python syntax/contract tests and eval fixture checks. It also invokes Claude native validation when available, explicitly reporting a skip otherwise. GitHub Actions runs `just check` on Python 3.15 on every push and pull request; it does not perform authenticated live model evals.
 
 For a full official portable-schema check, fetch the schema URL in plugin.json and validate with a JSON Schema implementation. Codex 0.155.1, the version tested in September 2026, had no separate plugin validator: native marketplace/add/list plus fresh-session loading is its integration gate. The bundled legacy plugin-creator validator requires a compatibility file and is not the validator for this portable-only Codex package.
 
