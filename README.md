@@ -62,7 +62,7 @@ See [lookup-tools.md](plugins/otel-instrumentation-skills/shared/lookup-tools.md
 
 ## Installation
 
-Prerequisites: a current Claude Code or Codex CLI, Git and Python 3.15+ (the lookup helper and checks are dependency-free). The helper starts through `scripts/upstream.sh`, which uses `python3.15` on PATH, then Homebrew, then `uv run --no-project --python 3.15`. On a machine with none of those it exits 1 with install instructions; the skills then report the helper as unavailable and fall back to tagged source and official docs. The repository pins 3.15 in `.python-version`; `just` recipes use `python3`, or the command in `PYTHON`, for example `PYTHON="uv run --no-project python" just check`.
+Prerequisites: a current Claude Code or Codex CLI, Git and Python 3.15+ (the lookup helper and checks are dependency-free). The helper starts through `scripts/upstream.sh`, which uses `python3.15` on PATH, then Homebrew, then a 3.15 that uv resolves from a neutral directory (never from the current project). On a machine with none of those it exits 1 with install instructions; the skills then report the helper as unavailable and fall back to tagged source and official docs. The repository pins 3.15 in `.python-version`; `just` recipes use `python3`, or the command in `PYTHON`, for example `PYTHON="uv run --no-project python" just check`.
 
 Claude Code:
 

@@ -1,6 +1,6 @@
 # Fresh lookup helper
 
-Requires the Python 3.15 standard library and network access. Resolve the installed plugin root from this file, not the project working directory. Run `sh <plugin-root>/scripts/upstream.sh --help`. The launcher uses `python3.15` on PATH, then the Homebrew locations, then `uv run --no-project --python 3.15`. With none of them it exits 1 and names how to install 3.15; report the helper as unavailable, state that as a limitation and use tagged source or official docs, never remembered versions.
+Requires the Python 3.15 standard library and network access. Resolve the installed plugin root from this file, not the project working directory. Run `sh <plugin-root>/scripts/upstream.sh --help`. The launcher uses `python3.15` on PATH, then the Homebrew locations, then a 3.15 that uv resolves from a neutral directory, never the project's own environment. With none of them it exits 1 and names how to install 3.15; report the helper as unavailable, state that as a limitation and use tagged source or official docs, never remembered versions.
 
 Commands (replace uppercase placeholders with inspected identities):
 

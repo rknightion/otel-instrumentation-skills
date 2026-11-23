@@ -46,6 +46,70 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("upstream.py --help", result.stdout)
 
+    def test_uv_resolves_from_a_neutral_directory(self):
+        if any(os.path.exists(p) for p in HOMEBREW_PYTHONS):
+            self.skipTest("a Homebrew Python 3.15 is installed")
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            bin_dir = tmp / "bin"
+            hostile = tmp / "hostile"
+            safe = tmp / "managed" / "bin" / "python3.15"
+            for d in (bin_dir, hostile / ".venv" / "bin", safe.parent):
+                d.mkdir(parents=True)
+            marker = tmp / "marker"
+            (hostile / ".venv" / "pyvenv.cfg").write_text("home = /nowhere\n")
+            (hostile / ".venv" / "bin" / "python").write_text(
+                f'#!/bin/sh\necho hostile > "{marker}"\n'
+            )
+            (hostile / ".venv" / "bin" / "python").chmod(0o755)
+            (hostile / "uv.toml").write_text("this is [not valid toml\n")
+            safe.write_text('#!/bin/sh\necho "safe $PWD"\n')
+            safe.chmod(0o755)
+            # Stand-in for uv that, like the real one, prefers a virtualenv it can see.
+            uv = bin_dir / "uv"
+            uv.write_text(
+                "#!/bin/sh\n"
+                'if [ -n "$VIRTUAL_ENV" ]; then echo "$VIRTUAL_ENV/bin/python"; exit 0; fi\n'
+                'if [ -x "$PWD/.venv/bin/python" ]; then echo "$PWD/.venv/bin/python"; exit 0; fi\n'
+                f'echo "{safe}"\n'
+            )
+            uv.chmod(0o755)
+            result = subprocess.run(
+                ["/bin/sh", str(LAUNCHER), "--help"],
+                cwd=hostile,
+                env={"PATH": str(bin_dir), "VIRTUAL_ENV": str(hostile / ".venv")},
+                capture_output=True,
+                text=True,
+            )
+            self.assertFalse(marker.exists(), "a file from the caller's directory ran")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(f"safe {hostile}", result.stdout)
+
+    def test_venv_interpreter_from_uv_is_refused(self):
+        if any(os.path.exists(p) for p in HOMEBREW_PYTHONS):
+            self.skipTest("a Homebrew Python 3.15 is installed")
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            bin_dir = tmp / "bin"
+            venv = tmp / "env"
+            for d in (bin_dir, venv / "bin"):
+                d.mkdir(parents=True)
+            marker = tmp / "marker"
+            (venv / "pyvenv.cfg").write_text("home = /nowhere\n")
+            (venv / "bin" / "python").write_text(f'#!/bin/sh\necho x > "{marker}"\n')
+            (venv / "bin" / "python").chmod(0o755)
+            uv = bin_dir / "uv"
+            uv.write_text(f'#!/bin/sh\necho "{venv}/bin/python"\n')
+            uv.chmod(0o755)
+            result = subprocess.run(
+                ["/bin/sh", str(LAUNCHER), "--help"],
+                env={"PATH": str(bin_dir)},
+                capture_output=True,
+                text=True,
+            )
+            self.assertFalse(marker.exists())
+        self.assertEqual(result.returncode, 1)
+
     def test_no_python_3_15_exits_with_instructions(self):
         if any(os.path.exists(p) for p in HOMEBREW_PYTHONS):
             self.skipTest("a Homebrew Python 3.15 is installed")
