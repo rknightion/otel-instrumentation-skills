@@ -40,7 +40,7 @@ jobs:
           python3 -c 'import sys; assert sys.version_info[:2] == (3, 15), sys.version'
 
       - name: Set up just
-        uses: rknightion/.github/.github/actions/setup-just@7ed87713176ccae972b0143071b0196ff370d804 # v1.32.3
+        uses: rknightion/.github/.github/actions/setup-just@20533b678728ec119e52401c1e48b31f3c8b83c4 # v1.32.5
 
       - name: just check
         run: just check
